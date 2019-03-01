@@ -2,7 +2,7 @@ package com.vinicius.pontointeligente.api.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +68,7 @@ public class Funcionario implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Empresa empresa;
 
-	@OneToMany(mappedBy = "tbg_funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Lancamento> lancamentos;
 
 	public Funcionario() {
@@ -196,12 +196,12 @@ public class Funcionario implements Serializable {
 
 	@PreUpdate
 	public void preUpdate() {
-		dataAtualizacao = new Date(System.currentTimeMillis());
+		dataAtualizacao = new Date();
 	}
 
 	@PrePersist
 	public void prePersist() {
-		final Date atual = new Date(System.currentTimeMillis());
+		final Date atual = new Date();
 		dataCriacao = atual;
 		dataAtualizacao = atual;
 	}

@@ -1,7 +1,7 @@
 package com.vinicius.pontointeligente.api.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -123,12 +123,12 @@ public class Lancamento implements Serializable {
 
 	@PreUpdate
 	public void preUpdate() {
-		dataAtualizacao = new Date(System.currentTimeMillis());
+		dataAtualizacao = new Date();
 	}
 
 	@PrePersist
 	public void prePersist() {
-		final Date atual = new Date(System.currentTimeMillis());
+		final Date atual = new Date();
 		dataCriacao = atual;
 		dataAtualizacao = atual;
 	}
