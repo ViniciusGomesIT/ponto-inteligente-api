@@ -44,21 +44,21 @@ public class FuncionarioRepositoryTest {
 	}
 	
 	@Test
-	public final void testBuscarFuncionarioPorEmail() {
+	public final void testBuscarFuncionarioPorEmail() throws Exception {
 		Funcionario funcionario = this.funcionarioRepository.findByEmail(EMAIL);
 		
 		assertEquals(EMAIL, funcionario.getEmail());
 	}
 	
 	@Test
-	public final void testBuscarFuncionarioPorCpf() {
+	public final void testBuscarFuncionarioPorCpf() throws Exception {
 		Funcionario funcionario = this.funcionarioRepository.findByCpf(CPF);
 		
 		assertEquals(CPF, funcionario.getCpf());
 	}
 	
 	@Test
-	public final void testBuscarFuncionarioPorCpfOuEmail() {
+	public final void testBuscarFuncionarioPorCpfOuEmail() throws Exception {
 		Funcionario funcionario = this.funcionarioRepository.findByCpfOrEmail(CPF, EMAIL);
 		
 		assertEquals(CPF, funcionario.getCpf());
@@ -66,14 +66,14 @@ public class FuncionarioRepositoryTest {
 	}
 	
 	@Test
-	public final void testBuscarFuncionarioPorCpfOuEmailParaCpfInvalido() {
+	public final void testBuscarFuncionarioPorCpfOuEmailParaCpfInvalido() throws Exception {
 		Funcionario funcionario = this.funcionarioRepository.findByCpfOrEmail("25836914752", EMAIL);
 		
 		assertNotNull(funcionario);
 	}
 	
 	@Test
-	public final void testBuscarFuncionarioPorCpfOuEmailParaCpEEmailfInvalidos() {
+	public final void testBuscarFuncionarioPorCpfOuEmailParaCpEEmailfInvalidos() throws Exception {
 		Funcionario funcionario = this.funcionarioRepository.findByCpfOrEmail("25836914752", "emailinvalido@email.com");
 		
 		assertNull(funcionario);
@@ -86,7 +86,7 @@ public class FuncionarioRepositoryTest {
 		funcionario.setCpf(CPF);
 		funcionario.setEmail(EMAIL);
 		funcionario.setPerfil(PerfilEnum.ROLE_USUARIO);
-		funcionario.setSenha(PasswordUtils.passwordEncryptor("123456"));
+		funcionario.setSenha(PasswordUtils.getPasswordHash("123456"));
 		funcionario.setEmpresa(empresa);
 		
 		return funcionario;

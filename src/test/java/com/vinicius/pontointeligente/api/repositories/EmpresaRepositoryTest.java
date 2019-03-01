@@ -39,7 +39,7 @@ public class EmpresaRepositoryTest {
 	}
 	
 	@Test
-	public void testBuscaPorCnpj() {
+	public void testBuscaPorCnpj() throws Exception {
 		Empresa empresa = this.empresaRepository.findByCnpj(CNPJ);
 		
 		assertEquals(CNPJ, empresa.getCnpj());

@@ -54,7 +54,7 @@ public class LancamentoRepositoryTest {
 	}
 	
 	@Test
-	public final void testQtdRegistrosBuscarLancamentosPorId() {
+	public final void testQtdRegistrosBuscarLancamentosPorId() throws Exception {
 		List<Lancamento> listLancamentos = this.lancamentoRepository.findByFuncionarioId(funcionarioId);
 		
 		assertEquals(2, listLancamentos.size());
@@ -77,7 +77,7 @@ public class LancamentoRepositoryTest {
 		funcionario.setCpf("14536985201");
 		funcionario.setEmail("emailtest@email.com");
 		funcionario.setPerfil(PerfilEnum.ROLE_USUARIO);
-		funcionario.setSenha(PasswordUtils.passwordEncryptor("123456"));
+		funcionario.setSenha(PasswordUtils.getPasswordHash("123456"));
 		funcionario.setEmpresa(empresa);
 		
 		return funcionario;

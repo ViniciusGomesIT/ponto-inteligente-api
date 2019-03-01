@@ -12,7 +12,7 @@ public class PasswordUtils {
 
 	}
 
-	public static String passwordEncryptor(String password) {
+	public static String getPasswordHash(String password) {
 		if ( password.isEmpty() || null == password ) {
 			
 			log.info("Password não informado");
