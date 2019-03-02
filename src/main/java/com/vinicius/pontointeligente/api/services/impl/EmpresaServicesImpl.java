@@ -1,6 +1,6 @@
 package com.vinicius.pontointeligente.api.services.impl;
 
-import java.util.Objects;
+import static java.util.Objects.isNull;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -36,9 +36,9 @@ public class EmpresaServicesImpl implements EmpresaService {
 	}
 
 	private boolean isEmpresaValida(Empresa empresa) {
-		if ( Objects.isNull(empresa) ) {
+		if ( isNull(empresa) ) {
 			return false;
-		} else if ( null == empresa.getCnpj() || empresa.getCnpj().isEmpty() 
+		} else if ( null == empresa.getCnpj() 		|| empresa.getCnpj().isEmpty() 
 				|| null == empresa.getRazaoSocial() || empresa.getRazaoSocial().isEmpty() ) {
 			return false;
 		}

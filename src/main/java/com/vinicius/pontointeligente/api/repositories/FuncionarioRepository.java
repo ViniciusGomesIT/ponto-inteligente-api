@@ -15,4 +15,5 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	
 	@Transactional(readOnly = true)
 	Funcionario findByCpfOrEmail(String cpf, String email);
+	
 }
