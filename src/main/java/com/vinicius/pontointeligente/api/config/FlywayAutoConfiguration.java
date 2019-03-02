@@ -1,4 +1,4 @@
-package com.vinicius.pontointeligente.api.configuration;
+package com.vinicius.pontointeligente.api.config;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.context.annotation.Configuration;
