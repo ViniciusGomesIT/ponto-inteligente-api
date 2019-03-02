@@ -7,6 +7,7 @@ import javax.persistence.NamedQuery;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vinicius.pontointeligente.api.entities.Lancamento;
@@ -16,6 +17,7 @@ import com.vinicius.pontointeligente.api.entities.Lancamento;
 	@NamedQuery(name = "LancamentoRepository.findByFuncionarioId",
 			query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId")
 })
+@Repository
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 	
 	@Transactional(readOnly = true)
