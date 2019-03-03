@@ -17,7 +17,7 @@ import com.vinicius.pontointeligente.api.dto.CadastroPjDto;
 import com.vinicius.pontointeligente.api.entities.Empresa;
 import com.vinicius.pontointeligente.api.entities.Funcionario;
 import com.vinicius.pontointeligente.api.enums.PerfilEnum;
-import com.vinicius.pontointeligente.api.rest.resource.CadastroPjResource;
+import com.vinicius.pontointeligente.api.rest.resource.PjResource;
 import com.vinicius.pontointeligente.api.rest.response.Response;
 import com.vinicius.pontointeligente.api.services.EmpresaService;
 import com.vinicius.pontointeligente.api.services.FuncionarioService;
@@ -28,15 +28,15 @@ import com.vinicius.pontointeligente.api.utils.PasswordUtils;
 //Anotação para informar para aceitar requisições de qualquer lugar.
 //Ideal só aceitar requisições de um link conhecido para evitar ataques e outros problemas
 @CrossOrigin(origins = "*") 
-public class CadastroPjController implements CadastroPjResource {
+public class PjController implements PjResource {
 
-	private static final Logger log = LoggerFactory.getLogger(CadastroPjController.class);
+	private static final Logger log = LoggerFactory.getLogger(PjController.class);
 	
 	private FuncionarioService funcionarioService;
 	private EmpresaService empresaService;
 	
 	@Autowired
-	public CadastroPjController(FuncionarioService funcionarioService, EmpresaService empresaService) {
+	public PjController(FuncionarioService funcionarioService, EmpresaService empresaService) {
 		this.funcionarioService = funcionarioService;
 		this.empresaService = empresaService;
 	}
