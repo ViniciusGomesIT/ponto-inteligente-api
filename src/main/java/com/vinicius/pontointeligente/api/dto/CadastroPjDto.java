@@ -35,10 +35,6 @@ public class CadastroPjDto {
 	@CNPJ(message = "CNPj inválido")
 	private String cnpj;
 	
-	public CadastroPjDto() {
-		
-	}
-
 	public Long getId() {
 		return id;
 	}

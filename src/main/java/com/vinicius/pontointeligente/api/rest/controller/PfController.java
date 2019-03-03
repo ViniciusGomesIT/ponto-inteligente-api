@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +45,7 @@ public class PfController implements PfResource {
 	}
 
 	@Override
-	public ResponseEntity<Response<CadastroPfDto>> cadastrar(@Valid CadastroPfDto cadastroPfDto, BindingResult result) {
+	public ResponseEntity<Response<CadastroPfDto>> cadastrar(@Valid @RequestBody CadastroPfDto cadastroPfDto, BindingResult result) {
 		log.info("Iniciando cadastro de PF: {}", cadastroPfDto.toString());
 		
 		Response<CadastroPfDto> response = new Response<CadastroPfDto>();
@@ -53,7 +54,7 @@ public class PfController implements PfResource {
 		
 		if ( result.hasErrors() ) {
 			log.error("Erro ao validar os dados: {}", result.getAllErrors());
-			result.getAllErrors().forEach( error -> response.getErros().add(error.getDefaultMessage()) );
+			result.getAllErrors().forEach( error -> response.getErrors().add(error.getDefaultMessage()) );
 			
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -64,7 +65,7 @@ public class PfController implements PfResource {
 		
 		response.setData( this.converterCadastroPfDto(funcionario) );
 				
-		return ResponseEntity.ok().body(response);
+		return ResponseEntity.ok(response);
 	}
 
 	private Funcionario converterDtoFuncionario(CadastroPfDto cadastroPfDto) {

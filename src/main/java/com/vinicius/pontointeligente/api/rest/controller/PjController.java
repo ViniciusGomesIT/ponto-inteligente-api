@@ -49,17 +49,18 @@ public class PjController implements PjResource {
 		
 		validarDadosExistentes(cadastroPjDto, result);
 		
-		Empresa empresa = this.converterDadosDtoEmpresa(cadastroPjDto);
-		Funcionario funcionario = this.converterDadosDtoFuncionario(cadastroPjDto, result);
-		
 		if ( result.hasErrors() ) {
 			log.error("Error ao validar dados de cadastro PJ: {}", result.getAllErrors());
-			result.getAllErrors().forEach( error -> response.getErros().add(error.getDefaultMessage()) );
+			result.getAllErrors().forEach( error -> response.getErrors().add(error.getDefaultMessage()) );
 			
 			return ResponseEntity.badRequest().body(response);
 		}
 		
+		Empresa empresa = this.converterDadosDtoEmpresa(cadastroPjDto);
+		Funcionario funcionario = this.converterDadosDtoFuncionario(cadastroPjDto, result);
+		
 		this.empresaService.salvar(empresa);
+		
 		funcionario.setEmpresa(empresa);
 		this.funcionarioService.salvar(funcionario);
 		
