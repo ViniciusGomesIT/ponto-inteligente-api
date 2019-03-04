@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vinicius.pontointeligente.api.dto.CadastroPfDto;
+import com.vinicius.pontointeligente.api.dto.CadastroPfDTO;
 import com.vinicius.pontointeligente.api.entities.Empresa;
 import com.vinicius.pontointeligente.api.entities.Funcionario;
 import com.vinicius.pontointeligente.api.enums.PerfilEnum;
@@ -45,10 +45,10 @@ public class PfController implements PfResource {
 	}
 
 	@Override
-	public ResponseEntity<Response<CadastroPfDto>> cadastrar(@Valid @RequestBody CadastroPfDto cadastroPfDto, BindingResult result) {
+	public ResponseEntity<Response<CadastroPfDTO>> cadastrar(@Valid @RequestBody CadastroPfDTO cadastroPfDto, BindingResult result) {
 		log.info("Iniciando cadastro de PF: {}", cadastroPfDto.toString());
 		
-		Response<CadastroPfDto> response = new Response<CadastroPfDto>();
+		Response<CadastroPfDTO> response = new Response<CadastroPfDTO>();
 		
 		validaEmpresaEfuncionario(cadastroPfDto, result);
 		
@@ -68,7 +68,7 @@ public class PfController implements PfResource {
 		return ResponseEntity.ok(response);
 	}
 
-	private Funcionario converterDtoFuncionario(CadastroPfDto cadastroPfDto) {
+	private Funcionario converterDtoFuncionario(CadastroPfDTO cadastroPfDto) {
 		Funcionario func = new Funcionario();
 
 		func.setCpf(cadastroPfDto.getCpf());
@@ -87,7 +87,7 @@ public class PfController implements PfResource {
 		return func;
 	}
 
-	private void validaEmpresaEfuncionario(CadastroPfDto cadastroPfDto, BindingResult result) {	
+	private void validaEmpresaEfuncionario(CadastroPfDTO cadastroPfDto, BindingResult result) {	
 		
 		Optional<Funcionario> func = this.funcionarioService.buscarPorEmailOuCpf(cadastroPfDto.getEmail(), cadastroPfDto.getCpf());
 		Optional<Empresa> emp = this.empresaService.buscarPorCnpj(cadastroPfDto.getCnpj());
@@ -104,8 +104,8 @@ public class PfController implements PfResource {
 	}
 	
 
-	private CadastroPfDto converterCadastroPfDto(Funcionario funcionario) {
-		CadastroPfDto dto = new CadastroPfDto();
+	private CadastroPfDTO converterCadastroPfDto(Funcionario funcionario) {
+		CadastroPfDTO dto = new CadastroPfDTO();
 		
 		dto.setId(funcionario.getId());
 		dto.setNome(funcionario.getNome());

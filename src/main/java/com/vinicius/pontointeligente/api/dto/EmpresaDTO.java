@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-public class EmpresaDto {
+public class EmpresaDTO {
 
 	private Long id;
 	

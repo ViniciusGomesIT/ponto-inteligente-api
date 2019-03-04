@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vinicius.pontointeligente.api.dto.EmpresaDto;
+import com.vinicius.pontointeligente.api.dto.EmpresaDTO;
 import com.vinicius.pontointeligente.api.entities.Empresa;
 import com.vinicius.pontointeligente.api.rest.resource.EmpresaResource;
 import com.vinicius.pontointeligente.api.rest.response.Response;
@@ -31,13 +31,13 @@ public class EmpresaController implements EmpresaResource {
 	@Autowired
 	private EmpresaService service;
 	
-	Response<EmpresaDto> response;
+	Response<EmpresaDTO> response;
 
 	@Override
-	public ResponseEntity<Response<EmpresaDto>> cadastrar(@Valid @RequestBody EmpresaDto empresaDto, BindingResult result) {
+	public ResponseEntity<Response<EmpresaDTO>> cadastrar(@Valid @RequestBody EmpresaDTO empresaDto, BindingResult result) {
 		log.info("Iniciando o cadastro de empresa.");
 		
-		response = new Response<EmpresaDto>();
+		response = new Response<EmpresaDTO>();
 
 		validarEmpresaExistente(empresaDto, result);
 
@@ -58,10 +58,10 @@ public class EmpresaController implements EmpresaResource {
 	}
 	
 	@Override
-	public ResponseEntity<Response<EmpresaDto>> findByCnpj(String cnpj) {
+	public ResponseEntity<Response<EmpresaDTO>> findByCnpj(String cnpj) {
 		log.info("Buscando empresa com o CNPJ: {}", cnpj);
 		
-		response = new Response<EmpresaDto>();
+		response = new Response<EmpresaDTO>();
 		
 		Optional<Empresa> empresaOpt = this.service.buscarPorCnpj(cnpj);
 		
@@ -76,7 +76,7 @@ public class EmpresaController implements EmpresaResource {
 		}
 	}
 
-	private void validarEmpresaExistente(EmpresaDto empresaDto, BindingResult result) {
+	private void validarEmpresaExistente(EmpresaDTO empresaDto, BindingResult result) {
 		Optional<Empresa> emp = this.service.buscarPorCnpj(empresaDto.getCnpj());
 
 		if (emp.isPresent()) {
@@ -84,7 +84,7 @@ public class EmpresaController implements EmpresaResource {
 		}
 	}
 
-	private Empresa converterEmpresa(EmpresaDto empresaDto) {
+	private Empresa converterEmpresa(EmpresaDTO empresaDto) {
 		Empresa emp = new Empresa();
 		
 		emp.setRazaoSocial(empresaDto.getRazaoSocial());
@@ -93,8 +93,8 @@ public class EmpresaController implements EmpresaResource {
 		return emp;
 	}
 
-	private EmpresaDto converterDtoEmpresa(Empresa empresa) {
-		EmpresaDto dto = new EmpresaDto();
+	private EmpresaDTO converterDtoEmpresa(Empresa empresa) {
+		EmpresaDTO dto = new EmpresaDTO();
 		
 		dto.setId(empresa.getId());
 		dto.setRazaoSocial(empresa.getRazaoSocial());

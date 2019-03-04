@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vinicius.pontointeligente.api.dto.CadastroPjDto;
+import com.vinicius.pontointeligente.api.dto.CadastroPjDTO;
 import com.vinicius.pontointeligente.api.entities.Empresa;
 import com.vinicius.pontointeligente.api.entities.Funcionario;
 import com.vinicius.pontointeligente.api.enums.PerfilEnum;
@@ -42,10 +42,10 @@ public class PjController implements PjResource {
 	}
 
 	@Override
-	public ResponseEntity<Response<CadastroPjDto>> cadastrar(@Valid @RequestBody CadastroPjDto cadastroPjDto, BindingResult result) {
+	public ResponseEntity<Response<CadastroPjDTO>> cadastrar(@Valid @RequestBody CadastroPjDTO cadastroPjDto, BindingResult result) {
 		log.info("Inicando o cadastro PJ: {}", cadastroPjDto.toString());
 		
-		Response<CadastroPjDto> response = new Response<CadastroPjDto>();
+		Response<CadastroPjDTO> response = new Response<CadastroPjDTO>();
 		
 		validarDadosExistentes(cadastroPjDto, result);
 		
@@ -69,7 +69,7 @@ public class PjController implements PjResource {
 		return ResponseEntity.ok(response);
 	}
 	
-	private void validarDadosExistentes(CadastroPjDto cadastroPjDto, BindingResult result) {
+	private void validarDadosExistentes(CadastroPjDTO cadastroPjDto, BindingResult result) {
 		this.empresaService.buscarPorCnpj(cadastroPjDto.getCnpj())
 			.ifPresent( empresa -> result.addError(new ObjectError("Empresa", "Empresa já cadastrada")) );
 		
@@ -81,7 +81,7 @@ public class PjController implements PjResource {
 		
 	}
 	
-	private Empresa converterDadosDtoEmpresa(CadastroPjDto cadastroPjDto) {
+	private Empresa converterDadosDtoEmpresa(CadastroPjDTO cadastroPjDto) {
 		Empresa empresa = new Empresa();
 		
 		empresa.setCnpj(cadastroPjDto.getCnpj());
@@ -90,7 +90,7 @@ public class PjController implements PjResource {
 		return empresa;
 	}
 	
-	private Funcionario converterDadosDtoFuncionario(CadastroPjDto cadastroPjDto, BindingResult result) {
+	private Funcionario converterDadosDtoFuncionario(CadastroPjDTO cadastroPjDto, BindingResult result) {
 		Funcionario funcionario = new Funcionario();
 		
 		funcionario.setNome(cadastroPjDto.getNome());
@@ -102,8 +102,8 @@ public class PjController implements PjResource {
 		return funcionario;
 	}
 
-	private CadastroPjDto converterCadastroPjDto(Funcionario funcionario) {
-		CadastroPjDto cadastroPjDto = new CadastroPjDto();
+	private CadastroPjDTO converterCadastroPjDto(Funcionario funcionario) {
+		CadastroPjDTO cadastroPjDto = new CadastroPjDTO();
 		
 		cadastroPjDto.setId(funcionario.getId());
 		cadastroPjDto.setNome(funcionario.getNome());
