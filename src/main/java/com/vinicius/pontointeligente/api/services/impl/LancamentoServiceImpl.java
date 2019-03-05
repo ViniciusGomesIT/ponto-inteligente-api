@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.pontointeligente.api.entities.Lancamento;
@@ -24,7 +26,7 @@ public class LancamentoServiceImpl implements LancamentoService {
 	@Override
 	public List<Lancamento> findByFuncionarioId(Long id) {
 
-		if (id == 0) {
+		if (null == id) {
 			log.info("Id informado inválido, devolvendo nulo: {}", id);
 			return null;
 		}
@@ -48,6 +50,11 @@ public class LancamentoServiceImpl implements LancamentoService {
 	}
 	
 	@Override
+	public Page<Lancamento> buscarPorId(Long id, Pageable pageable) {
+		return lancamentoRepository.findByFuncionarioId(id, pageable);
+	}
+	
+	@Override
 	public void remover(Long id) {
 		this.lancamentoRepository.deleteById(id);
 	}
@@ -60,7 +67,4 @@ public class LancamentoServiceImpl implements LancamentoService {
 		}
 		return true;
 	}
-
-
-
 }

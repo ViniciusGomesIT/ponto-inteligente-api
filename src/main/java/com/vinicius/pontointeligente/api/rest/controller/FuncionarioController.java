@@ -26,7 +26,7 @@ import com.vinicius.pontointeligente.api.utils.PasswordUtils;
 
 @RestController
 @RequestMapping("/api/funcionario")
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 public class FuncionarioController implements FuncionarioResource {
 	
 	private static final Logger log = LoggerFactory.getLogger(FuncionarioController.class);
