@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,6 +45,7 @@ public class EmpresaControllerTest {
 	private static final String RAZAO_SOCIAL = "Empresa Teste Unitario";
 	
 	@Test
+	@WithMockUser
 	public void testFindByCNPJInvalido() throws Exception{
 		BDDMockito.given(this.service.buscarPorCnpj(Mockito.anyString())).willReturn(Optional.empty());
 		
@@ -54,6 +56,7 @@ public class EmpresaControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	public void testFindBValido() throws Exception {
 		BDDMockito.given(this.service.buscarPorCnpj(Mockito.anyString())).willReturn(this.gerarDadosEmpresa());
 		
@@ -67,6 +70,7 @@ public class EmpresaControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	public void testSalvar() throws Exception {
 		BDDMockito.given(this.service.salvar(Mockito.any(Empresa.class))).willReturn(new Empresa());
 		Empresa emp = this.gerarDadosEmpresa().get();		

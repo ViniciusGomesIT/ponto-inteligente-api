@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public interface LancamentoResource {
 	ResponseEntity<Response<LancamentoDTO>> salvar(@Valid @RequestBody LancamentoDTO lancamentodto, BindingResult result);
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	ResponseEntity<Response<String>> deletar(@PathVariable("id") Long id);
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
