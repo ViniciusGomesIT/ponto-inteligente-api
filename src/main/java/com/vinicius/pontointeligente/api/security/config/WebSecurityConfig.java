@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler ;
 	@Autowired
-	private UserDetailsService userDetailsService ;
+	private UserDetailsService userDetailsService;
 	
 	@Autowired
 	public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests()
 		.antMatchers("/auth/**", "/api/cadastrar-pj", "/api/cadastrar-pf", "/v2/api-docs",
-				"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
+			"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
 		.permitAll()
 		.anyRequest()
 		.authenticated()

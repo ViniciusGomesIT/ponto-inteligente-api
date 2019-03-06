@@ -67,6 +67,8 @@ public class LancamentoController implements LancamentoResource {
 	@Override
 	public ResponseEntity<Response<LancamentoDTO>> findById(Long id) {
 		Response<LancamentoDTO> response = new Response<LancamentoDTO>();
+		
+		log.info("Buscando lancamento par ao ID: {}", id);
 		Optional<Lancamento> lancamento = this.lancamentoService.buscarPorId(id);
 		
 		if ( !lancamento.isPresent() ) {
