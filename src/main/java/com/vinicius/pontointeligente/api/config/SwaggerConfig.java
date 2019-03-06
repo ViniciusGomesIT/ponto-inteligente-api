@@ -3,9 +3,12 @@ package com.vinicius.pontointeligente.api.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.vinicius.pontointeligente.api.security.model.JwtProperties;
@@ -28,6 +31,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ActiveProfiles("dev")
 public class SwaggerConfig {
 
+	private static final Logger log = LoggerFactory.getLogger(SwaggerConfig.class);
 	private JWTUtils jwtUtils;
 	private JwtUserDetailsServiceImpl jwtUserDetailsService;
 	private JwtProperties properties;
@@ -50,11 +54,6 @@ public class SwaggerConfig {
 	}
 	
 	private List<Parameter> getParameters() {
-		String token;
-		
-		UserDetails userDetails = jwtUserDetailsService.loadUserByUsername("admin@vinicius.com");
-		token = jwtUtils.obterToken(userDetails);
-		
 		ParameterBuilder paramBuilder = new ParameterBuilder();
 		List<Parameter> parameters = new ArrayList<Parameter>();
 				
@@ -63,13 +62,23 @@ public class SwaggerConfig {
 			.modelRef( new ModelRef("string") )
 			.parameterType("header")
 			.required(true)
-			.defaultValue( properties.getPrefix() + " " + token )
-			.allowMultiple(false)
+			.defaultValue( properties.getPrefix() + " " + getToken() )
 			.build();
 		
 		parameters.add(paramBuilder.build());
 		
 		return parameters;
+	}
+	
+	public String getToken() {
+		try {
+			UserDetails userDetails = jwtUserDetailsService.loadUserByUsername("admin@vinicius.com");
+			
+			return jwtUtils.obterToken(userDetails);
+		} catch (UsernameNotFoundException e) {
+			log.info("Usuário não encontrado {}", e.getMessage());
+			return null;
+		}
 	}
 
 	private ApiInfo apiInfo() {
